@@ -10,10 +10,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("b81c6aee-7433-474a-b3a9-17fa08eff521")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("MusicStore.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9944c911a28d8858dcdc41d700ff6d008dab6cc7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+46bc4c3e5f8133a08541c8ed3aa9f9966962959b")]
 [assembly: System.Reflection.AssemblyProductAttribute("MusicStore.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MusicStore.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
