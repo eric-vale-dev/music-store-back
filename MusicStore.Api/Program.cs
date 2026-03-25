@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MusicStore.Api.Data;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +14,26 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+// Obtener el ID del proyecto desde appsettings.json
+var firebaseProjectId = builder.Configuration["Firebase:ProjectId"];
+
+// Configurar el esquema de autenticación JWT
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.Authority = $"https://securetoken.google.com/{firebaseProjectId}";
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = $"https://securetoken.google.com/{firebaseProjectId}",
+            ValidateAudience = true,
+            ValidAudience = firebaseProjectId,
+            ValidateLifetime = true
+        };
+    });
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -22,6 +43,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseAuthentication(); 
+app.UseAuthorization();
+app.MapControllers();
+
 
 var summaries = new[]
 {

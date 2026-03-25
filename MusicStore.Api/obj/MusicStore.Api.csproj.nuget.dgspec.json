@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/home/valera/c#/music-store-back/MusicStore.Api/MusicStore.Api.csproj": {}
+    "/home/valera/angular-proyects/music-store/music-store-back/MusicStore.Api/MusicStore.Api.csproj": {}
   },
   "projects": {
-    "/home/valera/c#/music-store-back/MusicStore.Api/MusicStore.Api.csproj": {
+    "/home/valera/angular-proyects/music-store/music-store-back/MusicStore.Api/MusicStore.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/home/valera/c#/music-store-back/MusicStore.Api/MusicStore.Api.csproj",
+        "projectUniqueName": "/home/valera/angular-proyects/music-store/music-store-back/MusicStore.Api/MusicStore.Api.csproj",
         "projectName": "MusicStore.Api",
-        "projectPath": "/home/valera/c#/music-store-back/MusicStore.Api/MusicStore.Api.csproj",
+        "projectPath": "/home/valera/angular-proyects/music-store/music-store-back/MusicStore.Api/MusicStore.Api.csproj",
         "packagesPath": "/home/valera/.nuget/packages/",
-        "outputPath": "/home/valera/c#/music-store-back/MusicStore.Api/obj/",
+        "outputPath": "/home/valera/angular-proyects/music-store/music-store-back/MusicStore.Api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/valera/.nuget/NuGet/NuGet.Config"
@@ -38,6 +38,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "MailKit": {
+              "target": "Package",
+              "version": "[4.15.1, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.2, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.24, )"
