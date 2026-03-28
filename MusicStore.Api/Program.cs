@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using MusicStore.Api.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using MusicStore.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Inyectar el servicio de correo
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 // Configurar Entity Framework con PostgreSQL
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -32,8 +36,21 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
         };
     });
 
-var app = builder.Build();
+// 1. Agregar soporte para controladores
+builder.Services.AddControllers();
 
+// 2. Configurar CORS para el frontend (Angular por defecto corre en 4200)
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -43,6 +60,10 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// 3. Aplicar CORS antes de Autenticación/Autorización
+app.UseCors("AllowAngular");
+
 app.UseAuthentication(); 
 app.UseAuthorization();
 app.MapControllers();
